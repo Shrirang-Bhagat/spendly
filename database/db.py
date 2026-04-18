@@ -69,6 +69,15 @@ def seed_db():
     db.close()
 
 
+def get_user_by_email(email: str):
+    db = get_db()
+    user = db.execute(
+        "SELECT * FROM users WHERE email = ?", (email,)
+    ).fetchone()
+    db.close()
+    return user
+
+
 def create_user(name: str, email: str, password: str) -> int:
     password_hash = generate_password_hash(password)
     db = get_db()
